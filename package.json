@@ -72,13 +72,13 @@
     ],
     "*.{js,jsx}": [
       "eslint --fix",
-      "check-chinese",
+      "yarn check-chinese",
       "git add"
     ],
     "*.{ts,tsx}": [
       "eslint --fix",
       "npm run tsc",
-      "check-chinese",
+      "yarn check-chinese",
       "git add"
     ]
   },

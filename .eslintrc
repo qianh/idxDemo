@@ -1,3 +1,12 @@
 {
-  "extends": "eslint-config-umi"
+  "extends": "eslint-config-umi",
+  "rules": {
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-unused-labels": "error",
+    "no-unused-vars": "error",
+    "no-unused-expressions": 1,
+    "react/no-unescaped-entities": "error",
+    "no-use-before-define": "error"
+  }
 }
