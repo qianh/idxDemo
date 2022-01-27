@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-umi",
+  "extends": ["eslint-config-umi", "tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "rules": {
     "no-console": "error",
     "no-debugger": "error",
@@ -8,5 +8,11 @@
     "no-unused-expressions": 1,
     "react/no-unescaped-entities": "error",
     "no-use-before-define": "error"
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
   }
 }
