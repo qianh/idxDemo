@@ -10,6 +10,7 @@ export default function() {
         <li>
           <a href="https://umijs.org/guide/getting-started.html">
             Getting Started
+            测试功能
           </a>
         </li>
       </ul>
