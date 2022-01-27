@@ -11,9 +11,6 @@ export default function() {
           <a href="https://umijs.org/guide/getting-started.html">
             Getting Started
             测试功能231
-            {() => {
-              console.error('test');
-            }}
           </a>
         </li>
       </ul>
