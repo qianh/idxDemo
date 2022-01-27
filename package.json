@@ -65,6 +65,11 @@
   "resolutions": {
     "@typescript-eslint/eslint-plugin": "^2.23.0"
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog-for-jira-smart-commits"
+    }
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,less,sass,md}": [
       "pretty-quick --staged",
