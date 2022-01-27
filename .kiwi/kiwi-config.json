@@ -1,0 +1,25 @@
+{
+  "kiwiDir": "./.kiwi",
+  "configFile": "./.kiwi/kiwi-config.json",
+  "srcLang": "zh-CN",
+  "distLangs": [
+    "en-US"
+  ],
+  "translateOptions": {
+    "concurrentLimit": 10,
+    "requestOptions": {},
+    "eachTranslateAwaitTime": 500
+  },
+  "baiduApiAppId": "20200601000482160",
+  "baiduApiKey": "pKZb0viWHxEZ_qOsWUcV",
+  "importI18N": "import I18N from '@/utils/I18N';",
+  "ignoreDir": ".umi,service,locales,demand-management",
+  "ignoreImport": "@service",
+  "langMap": {
+    "en-US": "en"
+  },
+  "resolveAt": false,
+  "requestHost": "http://admin-dev.200jit.com",
+  "projectName": "demo",
+  "useStandard": false
+}

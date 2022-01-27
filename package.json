@@ -1,0 +1,88 @@
+{
+  "private": true,
+  "name": "demo",
+  "version": "1.0.0",
+  "scripts": {
+    "commit": "git-cz",
+    "commit-all": "git add --all && git-cz",
+    "dev": "cross-env PORT=2711 NODE_OPTIONS=--max_old_space_size=2048 SOCKET_SERVER=http://localhost:2711 umi dev",
+    "start": "cross-env PORT=2711 HMR=none NODE_OPTIONS=--max_old_space_size=2048 umi dev",
+    "build": "node ./scripts/build.js",
+    "build-sourcemap": "cross-env NODE_ENV=production PROGRESS=none BABELRC=on APP_ROOT=./ NODE_OPTIONS=--max_old_space_size=2048 umi build --sourcemap",
+    "build-bundlesize": "cross-env NODE_ENV=production ANALYZE=1 APP_ROOT=./ NODE_OPTIONS=--max_old_space_size=2048 umi build",
+    "tsc": "node type-check.js",
+    "prepare": "husky install",
+    "build-onsentry": "node ./scripts/build.js",
+    "postbuild": "rimraf \"./dist/**/*.*.map\"",
+    "test": "umi test",
+    "lint": "eslint {src,mock,tests}/**/*.{ts,tsx} --fix",
+    "precommit": "lint-staged",
+    "pretty-quick": "pretty-quick --staged",
+    "check-chinese": "node ./scripts/check-chinese.js"
+  },
+  "prettier": "@dzg/prettier-config",
+  "dependencies": {
+    "@ant-design/icons": "^4.0.0",
+    "@dzg/sentry-utils": "^2",
+    "@sentry/browser": "^6",
+    "antd": "^4.*",
+    "babel-plugin-import": "^1.13.3",
+    "kiwi-intl": "^1.2.4",
+    "react": "^16.*",
+    "react-dom": "^16.*"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13",
+    "@commitlint/config-conventional": "^13",
+    "@dzg/prettier-config": "^1.0.3",
+    "@sentry/cli": "^1.68.0",
+    "@types/jest": "^23.3.12",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-test-renderer": "^16.0.3",
+    "@typescript-eslint/parser": "^4",
+    "@umijs/preset-react": "^1",
+    "babel-eslint": "^10",
+    "commitizen": "^4.1.5",
+    "cross-env": "^7",
+    "cz-conventional-changelog-for-jira-smart-commits": "^1.0.5",
+    "eslint": "^5.4.0",
+    "eslint-config-umi": "^1.4.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "4.1.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "pretty-quick": "^3.0.0",
+    "react-test-renderer": "^16.*",
+    "rimraf": "^2.6.2",
+    "thread-loader": "^3.0.1",
+    "typescript": "^4",
+    "umi": "^3.1"
+  },
+  "resolutions": {
+    "@typescript-eslint/eslint-plugin": "^2.23.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,less,sass,md}": [
+      "pretty-quick --staged",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "check-chinese",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "npm run tsc",
+      "check-chinese",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=10.13"
+  }
+}

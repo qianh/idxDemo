@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="0">
+  <title>demo</title>
+  <% if (context.env === 'production') { %>
+    <script type="text/javascript">
+      if (window.location.protocol === 'http:') {
+      	window.location.href = window.location.href.replace('http://', 'https://');
+      }
+    </script>
+  <% }%>
+</head>
+<body>
+  <div id="demo">
+  </div>
+</body>
+</html>
