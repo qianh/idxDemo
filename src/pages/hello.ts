@@ -1,4 +1,4 @@
-const DEFAULT = '测试';
+const DEFAULT = '测试一下';
 
 export {
   DEFAULT
