@@ -13,7 +13,7 @@
   "baiduApiAppId": "20200601000482160",
   "baiduApiKey": "pKZb0viWHxEZ_qOsWUcV",
   "importI18N": "import I18N from '@/utils/I18N';",
-  "ignoreDir": ".umi,service,locales,demand-management",
+  "ignoreDir": ".umi,service,locales,demand-management,pages",
   "ignoreImport": "@service",
   "langMap": {
     "en-US": "en"
