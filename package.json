@@ -16,7 +16,7 @@
     "postbuild": "rimraf \"./dist/**/*.*.map\"",
     "test": "umi test",
     "lint": "eslint {src,mock,tests}/**/*.{ts,tsx} --fix",
-    "precommit": "lint-staged && ./chinese-check.sh",
+    "precommit": "lint-staged",
     "pretty-quick": "pretty-quick --staged"
   },
   "prettier": "@dzg/prettier-config",
