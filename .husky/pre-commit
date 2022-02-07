@@ -8,13 +8,21 @@ then
   TS_FILES_LIST=($(git diff --cached --name-only --diff-filter=ACM | grep -F '.ts'))
   TS_FILES=''
   delim=''
+  echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后 \033[0m"
   for item in ${TS_FILES_LIST[@]};do
     TS_FILES=$TS_FILES$delim$item;
     delim=','
   done
-  echo "\033[33m 正在检测未提取的中文文案，请稍后 \033[0m"
-  echo $TS_FILES
   #data=$(cat $(dirname "$1")/.kiwi/kiwi-config.json | jq)
   #echo $data | jq -r '.ignoreDir'
-  #kiwi --extract $TS_FILES || exit 1
+  #dzg-kiwi check $TS_FILES || exit 1
+  CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES);
+  echo $CHECK_FILES;
+  if ["$CHECK_FILES" -gt 0]
+  then
+    for item in ${CHECK_FILES[@]};do
+      echo $item "有中文未翻译，请先进行翻译！"
+    done
+    exit 1
+  fi
 fi
