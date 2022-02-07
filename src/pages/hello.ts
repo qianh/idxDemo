@@ -1,5 +1,6 @@
 import I18N from 'src/utils/I18N';
-const DEFAULT = '测试';
+// kiwi-disable-next-line
+const DEFAULT = '测试123';
 const hello = ''
 
 export {
