@@ -14,11 +14,11 @@ then
     delim=','
   done
   CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES);
-  if [ "$CHECK_FILES" -gt 0 ]
+  num=${#CHECK_FILES}
+  echo $num
+  if [ "$num" -gt 0 ]
   then
-    for file in ${CHECK_FILES[@]};do
-      echo $file "有中文未翻译，请先进行翻译！"
-    done
+    echo "\033[33m $CHECK_FILES 有中文未翻译，请先进行翻译！\033[0m"
     exit 1
   fi
 fi
