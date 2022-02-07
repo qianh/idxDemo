@@ -8,7 +8,7 @@ then
   TS_FILES_LIST=($(git diff --cached --name-only --diff-filter=ACM | grep -F '.ts'))
   TS_FILES=''
   delim=''
-  echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后 \033[0m"
+  echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后... \033[0m"
   for item in ${TS_FILES_LIST[@]};do
     TS_FILES=$TS_FILES$delim$item;
     delim=','
