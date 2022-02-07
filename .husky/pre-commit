@@ -14,7 +14,6 @@ then
     delim=','
   done
   CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES);
-  echo $CHECK_FILES;
   if [ "$CHECK_FILES" -gt 0 ]
   then
     for file in ${CHECK_FILES[@]};do
