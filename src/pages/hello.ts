@@ -1,5 +1,6 @@
-const DEFAULT = '测试一下';
-const hello = '你好啊啊啊啊啦啦啦2312'
+import I18N from 'src/utils/I18N';
+const DEFAULT = '测试';
+const hello = '你好'
 
 export {
   DEFAULT

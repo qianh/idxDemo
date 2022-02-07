@@ -13,5 +13,8 @@ then
     delim=','
   done
   echo "\033[33m 正在检测未提取的中文文案，请稍后 \033[0m"
-  kiwi --extract $TS_FILES || exit 1
+  echo $TS_FILES
+  #data=$(cat $(dirname "$1")/.kiwi/kiwi-config.json | jq)
+  #echo $data | jq -r '.ignoreDir'
+  #kiwi --extract $TS_FILES || exit 1
 fi
