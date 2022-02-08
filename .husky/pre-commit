@@ -10,13 +10,13 @@ then
   TS_FILES_LIST=($(git diff --cached --name-only --diff-filter=ACM | grep -F '.ts'))
   TS_FILES=''
   delim=''
-  echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后... \033[0m"
   for item in ${TS_FILES_LIST[@]};do
     TS_FILES=$TS_FILES$delim$item;
     delim=','
   done
   VERSION=$(dzg-kiwi --version) || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
   if version_ge $VERSION '0.0.42'; then
+    echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后... \033[0m"
     dzg-kiwi --preCommitCheck $TS_FILES
   else
     echo "\033[31m dzg-kiwi版本过低，请全局安装最新版dzg-kiwi！\033[0m"
