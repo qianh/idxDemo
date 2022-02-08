@@ -16,7 +16,7 @@ then
     delim=','
   done
   VERSION=$(dzg-kiwi --version) || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
-  if version_ge $VERSION '0.0.41'; then
+  if version_ge $VERSION '0.0.42'; then
     dzg-kiwi --preCommitCheck $TS_FILES
   else
     echo "\033[31m dzg-kiwi版本过低，请全局安装最新版dzg-kiwi！\033[0m"
