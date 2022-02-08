@@ -2,6 +2,8 @@
 
 TS_CHANGED=$(git diff --cached --numstat --diff-filter=ACM | grep -F '.ts' | wc -l)
 
+function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1"; }
+
 # 对提交的代码中存在未提取的中文文案统一处理
 if [ "$TS_CHANGED" -gt 0 ]
 then
@@ -13,12 +15,11 @@ then
     TS_FILES=$TS_FILES$delim$item;
     delim=','
   done
-  CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES) || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
-  echo $CHECK_FILES
-  num=${#CHECK_FILES}
-  if [ "$num" -gt 2 ]
-  then
-    echo "\033[31m $CHECK_FILES 有中文未翻译，请先进行翻译！\033[0m"
+  VERSION=$(dzg-kiwi --version) || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
+  if version_ge $VERSION '0.0.41'; then
+    dzg-kiwi --preCommitCheck $TS_FILES
+  else
+    echo "\033[31m dzg-kiwi版本过低，请全局安装最新版dzg-kiwi！\033[0m"
     exit 1
   fi
 fi
