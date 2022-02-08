@@ -13,11 +13,17 @@ then
     TS_FILES=$TS_FILES$delim$item;
     delim=','
   done
-  CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES);
+  echo $TS_FILES
+  CHECK_FILES=($(dzg-kiwi preCommitCheck $TS_FILES))
+  if !CHECK_FILES
+  then
+    echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"
+    exit 1;
+  fi
   num=${#CHECK_FILES}
   if [ "$num" -gt 2 ]
   then
-    echo "\033[33m $CHECK_FILES 有中文未翻译，请先进行翻译！\033[0m"
+    echo "\033[31m $CHECK_FILES 有中文未翻译，请先进行翻译！\033[0m"
     exit 1
   fi
 fi
