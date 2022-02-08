@@ -13,9 +13,10 @@ then
     TS_FILES=$TS_FILES$delim$item;
     delim=','
   done
-  CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES)
-  echo $CHECK_FILES
-  command || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
+  echo $?
+  CHECK_FILES=$(dzg-kiwi preCommitCheck $TS_FILES);
+  echo $?
+  CHECK_FILES || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
   num=${#CHECK_FILES}
   if [ "$num" -gt 2 ]
   then
