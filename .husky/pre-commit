@@ -15,6 +15,7 @@ then
   done
   echo $TS_FILES
   CHECK_FILES=($(dzg-kiwi preCommitCheck $TS_FILES))
+  echo $CHECK_FILES
   if !CHECK_FILES
   then
     echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"
