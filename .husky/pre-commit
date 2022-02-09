@@ -1,5 +1,52 @@
 . "$(dirname "$0")/_/husky.sh"
 
+rm -f ./package.json.diff
+git diff --cached -U$(wc -l package.json | awk '{print $1}') package.json >> ./package.json.diff
+
+count=0
+dependenciesLine=0
+dependenciesLineClose=0
+devDependenciesLine=0
+devDependenciesLineClose=0
+while read line; do
+  count=$(( count + 1 ))
+  if [[ $line =~ "\"dependencies\":" ]]; then
+    dependenciesLine=$count
+  elif [[ $line =~ "\"devDependencies\"" ]]; then
+    devDependenciesLine=$count
+  elif [[ $line =~ "}" ]]; then
+    if [[ $dependenciesLine -ne 0 || $devDependenciesLine -ne 0 ]]; then
+      if [[ $dependenciesLine -ne 0 && $devDependenciesLine -eq 0 && $dependenciesLineClose -eq 0 ]]; then
+        dependenciesLineClose=$count
+      elif [[ $dependenciesLine -eq 0 && $devDependenciesLine -ne 0 && $devDependenciesLineClose -eq 0 ]]; then
+        devDependenciesLineClose=$count
+      elif [[ $dependenciesLine -ne 0 && $devDependenciesLine -ne 0 ]]; then
+        if [[ $dependenciesLineClose -eq 0 ]]; then
+          dependenciesLineClose=$count
+        elif [[ $devDependenciesLineClose -eq 0 ]]; then
+          devDependenciesLineClose=$count
+        fi
+      fi
+    fi
+  fi
+  if [[ $line == "+ "* || $line == "- "* ]]; then
+    if [[ $line != *"@dzg"* ]]; then
+      if [[ $count -gt $dependenciesLine && $dependenciesLine -gt 0 && $dependenciesLineClose -eq 0 ]]; then
+        echo "ERROR,检查到package.json中有第三方依赖修改，请汇报给前端委员会成员！$line"
+        rm -f ./package.json.diff
+        exit 1
+      elif [[ $count -gt $dependenciesLineClose && $dependenciesLineClose -gt 0 && $devDependenciesLineClose -eq 0 ]]; then
+        echo "ERROR,检查到package.json中有第三方依赖修改，请汇报给前端委员会成员！$line"
+        rm -f ./package.json.diff
+        exit 1
+      fi
+    fi
+  fi
+done < ./package.json.diff
+
+rm -f ./package.json.diff
+echo "SUCCESS,没有第三方依赖修改！完美！"
+
 TS_CHANGED=$(git diff --cached --numstat --diff-filter=ACM | grep -F '.ts' | wc -l)
 
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1"; }
@@ -15,7 +62,8 @@ then
     delim=','
   done
   VERSION=$(dzg-kiwi --version) || (echo "\033[31m 请全局安装最新版dzg-kiwi！\033[0m"; exit 1);
-  if version_ge $VERSION '0.0.42'; then
+  CHECK_VERSION=$(curl -s http://xd-dev.oss-cn-hangzhou.aliyuncs.com/gm2/0.0.1/checkVersion.json | sed 's/,/\n/g' | grep "version" | sed 's/:/\n/g' | sed '1d' | sed 's/}//g' | sed -e "s/^[[:space:]]*//")
+  if version_ge $VERSION ${CHECK_VERSION//\"/}; then
     echo "\033[33m 正在检测是否含有未翻译的中文文案，请稍后... \033[0m"
     dzg-kiwi --preCommitCheck $TS_FILES
   else
@@ -23,3 +71,5 @@ then
     exit 1
   fi
 fi
+
+npm run precommit
